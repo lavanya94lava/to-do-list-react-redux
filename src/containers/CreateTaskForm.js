@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-
+import { connect } from 'react-redux';
 import { addTask } from "../actions/actionCreator";
+import { bindActionCreators } from "redux";
 
 class CreateTaskForm extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class CreateTaskForm extends Component {
             onChange={this.onChangeTaskText}
             value={this.state.taskText}
             type="text"
-            class="form-control"
+            className ="form-control"
             id="task-input"
             placeholder="add task here"
           />
@@ -39,7 +40,7 @@ class CreateTaskForm extends Component {
           <button
             type="button"
             onClick={() => {
-              this.props.dispatch(addTask(this.state.taskText));
+              this.props.addTask(this.state.taskText);
               this.setState({ taskText: "" });
             }}
             style={{ marginTop: "25px" }}
@@ -53,4 +54,11 @@ class CreateTaskForm extends Component {
   }
 }
 
-export default CreateTaskForm;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+      addTask
+  }, dispatch)
+}
+
+
+export default connect(null,mapDispatchToProps)(CreateTaskForm);

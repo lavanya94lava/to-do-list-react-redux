@@ -5,7 +5,7 @@ const initialState = [];
 const taskReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TASK:
-      return [
+      const array = [
         ...state,
         {
           id: action.id,
@@ -13,6 +13,8 @@ const taskReducer = (state = initialState, action) => {
           completed: false,
         },
       ];
+      console.log(array);
+      return array;
     case TOGGLE_TASK:
       return state.map((task) =>
         task.id === action.id

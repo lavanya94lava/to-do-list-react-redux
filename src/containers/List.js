@@ -10,6 +10,7 @@ import {
 
 class List extends Component {
   render() {
+    console.log(this.props.todos);
     return (
       <div className="col-lg-10 offset-lg-1 col-md-10 col-sm-12 col-xs-12">
         <nav style={{ marginTop: "60px" }}>
@@ -19,7 +20,7 @@ class List extends Component {
                 "breadcrumb-item " +
                 (this.props.visibilityFilter === SHOW_ALL_TASKS ? "active" : "")
               }
-              onClick={() => this.props.setVisibilityFilter(SHOW_ALL_TASKS)}
+              onClick={() => this.props.visibility(SHOW_ALL_TASKS)}
             >
               All
             </li>
@@ -28,7 +29,7 @@ class List extends Component {
                 "breadcrumb-item " +
                 (this.props.visibilityFilter === COMPLETE_TASK ? "active" : "")
               }
-              onClick={() => this.props.setVisibilityFilter(COMPLETE_TASK)}
+              onClick={() => this.props.visibility(COMPLETE_TASK)}
             >
               Completed
             </li>
@@ -37,7 +38,7 @@ class List extends Component {
                 "breadcrumb-item " +
                 (this.props.visibilityFilter === ACTIVE_TASK ? "active" : "")
               }
-              onClick={() => this.props.setVisibilityFilter(ACTIVE_TASK)}
+              onClick={() => this.props.visibility(ACTIVE_TASK)}
             >
               Active
             </li>
@@ -67,7 +68,7 @@ class List extends Component {
                   <td>
                     <span
                       className="fas fa-minus-circle"
-                      onClick={() => this.props.deleteTodo(todo.id)}
+                      onClick={() => this.props.deleteTask(todo.id)}
                       style={{
                         color: "white",
                         fontSize: "20pt",
@@ -76,7 +77,7 @@ class List extends Component {
                     />
                     <span
                       className="fas fa-check-circle"
-                      onClick={() => this.props.toggleTodo(todo.id)}
+                      onClick={() => this.props.toggleTask(todo.id)}
                       style={{ color: "white", fontSize: "20pt" }}
                     />
                   </td>
@@ -113,9 +114,10 @@ const getVisibleTodos = (todos, filter) => {
 };
 
 const mapStateToProps = (state) => {
+    console.log(state);
   return {
-    todos: getVisibleTodos(state.todos, state.visibilityFilter),
-    visibilityFilter: state.visibilityFilter,
+    todos: getVisibleTodos(state.taskReducer, state.visibilityReducer),
+    visibilityFilter: state.visibilityReducer,
   };
 };
 
